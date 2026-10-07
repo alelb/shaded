@@ -24,7 +24,7 @@ A UI phase is not done until it works on a phone (touch, no horizontal scroll, r
 
 ## Milestone B — Gaza demographics MVP
 
-### Phase 2 — Source module: Killed in Gaza
+### Phase 2 — Source module: Killed in Gaza ✅
 
 - Raw TypeScript type for the v3 minified JSON; fetcher with timeout and typed errors. [2.1]
 - **Done when:** a test with a fixture parses the raw shape; manual check that the live endpoint loads from the browser (CORS confirmed).

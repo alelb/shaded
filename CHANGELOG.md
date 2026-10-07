@@ -29,3 +29,4 @@ All notable changes to Shaded, grouped by date (newest first).
   and `sex` per record (looked up by header name) and keeps rows with missing values.
 - Add a synthetic Killed in Gaza fixture and unit tests for the fetch helper and the source module.
 - Confirm the live Killed in Gaza endpoint loads from the GitHub Pages origin with CORS open.
+- Complete Phase 2 — Source module: Killed in Gaza.
