@@ -21,3 +21,11 @@ All notable changes to Shaded, grouped by date (newest first).
   intro line, and a footer with Tech for Palestine attribution and the limitations note.
 - Add tests for the app shell and footer, and a CI badge, live URL, and deploy note to the README.
 - Complete Phase 1 — CI & deploy skeleton: the shell is live at <https://alelb.github.io/shaded/>.
+- Add the Phase 2 Killed in Gaza source module spec (requirements, plan, validation).
+- Add a shared `fetchJson` helper for source modules: a 60 s total timeout, cancellation through the caller's
+  `AbortSignal`, and plain, serializable errors (`network`, `timeout`, `aborted`, `http`, `parse`) instead of
+  exceptions.
+- Add the Killed in Gaza source: v3 payload types, a shape guard, and `fetchKilledInGaza`, which returns only `age`
+  and `sex` per record (looked up by header name) and keeps rows with missing values.
+- Add a synthetic Killed in Gaza fixture and unit tests for the fetch helper and the source module.
+- Confirm the live Killed in Gaza endpoint loads from the GitHub Pages origin with CORS open.
