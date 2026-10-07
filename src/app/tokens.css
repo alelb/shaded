@@ -1,0 +1,70 @@
+/*
+ * Design tokens. Mobile first: base values target ~360 px screens.
+ *
+ * Breakpoints (see `breakpoints.ts`, the single source of these values):
+ *   tablet  `@media (min-width: 640px)`
+ *   desktop `@media (min-width: 1024px)`
+ * Use `min-width` queries only; never `max-width`.
+ *
+ * Contrast (WCAG 2.1, text vs background / surface):
+ *   light: text 16.5 / 15.0, muted 7.3 / 6.6, link 7.0 / 6.4
+ *   dark:  text 15.2 / 13.5, muted 7.4 / 6.6, link 9.1 / 8.1
+ * Borders are decorative only and never carry meaning.
+ */
+:root {
+  color-scheme: light dark;
+
+  /* Color: light palette */
+  --color-bg: #fafaf9;
+  --color-surface: #f0efec;
+  --color-text: #1c1b19;
+  --color-text-muted: #57534e;
+  --color-link: #1f4fb8;
+  --color-focus: #1f4fb8;
+  --color-border: #d6d3cd;
+
+  /* Spacing */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+
+  /* Type: fluid between ~360 px and ~1200 px viewports */
+  --font-family:
+    system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans', 'Noto Sans Arabic', sans-serif;
+  --font-size-sm: clamp(0.875rem, 0.85rem + 0.1vw, 0.9375rem);
+  --font-size-base: clamp(1rem, 0.96rem + 0.18vw, 1.0625rem);
+  --font-size-lg: clamp(1.125rem, 1.05rem + 0.35vw, 1.25rem);
+  --font-size-xl: clamp(1.75rem, 1.5rem + 1.2vw, 2.5rem);
+  --line-height: 1.5;
+  --line-height-tight: 1.2;
+
+  /* Layout */
+  --content-max-width: 1200px;
+  --gutter: 1rem; /* 16 px */
+  --tap-target: 44px;
+  --radius: 0.25rem;
+  --focus-ring: 3px solid var(--color-focus);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Color: dark palette */
+    --color-bg: #161614;
+    --color-surface: #22211e;
+    --color-text: #ecebe7;
+    --color-text-muted: #a9a59e;
+    --color-link: #9bb8f2;
+    --color-focus: #9bb8f2;
+    --color-border: #3d3b37;
+  }
+}
+
+@media (min-width: 640px) {
+  :root {
+    --gutter: 1.5rem; /* 24 px */
+  }
+}

@@ -2,8 +2,9 @@
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
 
-// `base` for the GitHub Pages sub-path is added in Phase 1.
+// Served from the GitHub Pages project sub-path: https://<user>.github.io/shaded/
 export default defineConfig({
+  base: '/shaded/',
   plugins: [react()],
   test: {
     environment: 'jsdom',

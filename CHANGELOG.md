@@ -14,3 +14,9 @@ All notable changes to Shaded, grouped by date (newest first).
 - Define responsive design rules: phone, tablet (`640px`), and desktop (`1024px`) layouts, a `1200px` max content
   width, landscape and 200% text zoom support, and a responsive test matrix used by Phase 1 and Phase 10.
 - Add a `/changelog` skill to keep this changelog up to date before merging.
+- Add the Phase 1 CI & deploy skeleton spec (requirements, plan, validation).
+- Add GitHub Actions CI (format check, lint, typecheck, test, build) on pull requests and branch pushes.
+- Add GitHub Pages deploy from `main`, reusing the CI checks; the site is served under `/shaded/`.
+- Add the mobile-first app shell: light and dark design tokens, breakpoints, a skip link and page landmarks, an
+  intro line, and a footer with Tech for Palestine attribution and the limitations note.
+- Add tests for the app shell and footer, and a CI badge, live URL, and deploy note to the README.

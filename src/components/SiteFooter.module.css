@@ -1,0 +1,16 @@
+.footer {
+  display: grid;
+  gap: var(--space-3);
+  font-size: var(--font-size-sm);
+}
+
+.note {
+  color: var(--color-text-muted);
+  max-width: 40rem;
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-target);
+}
