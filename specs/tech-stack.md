@@ -10,20 +10,20 @@
 
 ## Choices
 
-| Concern | Choice | Notes |
-|---|---|---|
-| Language | TypeScript (`strict: true`) | No `any` at module boundaries. |
-| Build tool | Vite | Static output in `dist/`; `base` set for the GitHub Pages sub-path. |
-| UI framework | React | Function components + hooks only. |
-| Charts | Recharts | Declarative; wrap each chart so the library can be swapped later. |
-| Heavy work | Web Worker (Vite `?worker` import) | JSON parsing + aggregation off the main thread. |
-| Data validation | Lightweight runtime guards (hand-written or Zod) | Normalize raw records into typed domain records. |
-| Styling | CSS Modules + CSS custom properties | Mobile-first (`min-width` queries only); design tokens for color/spacing; light & dark themes. |
-| Unit tests | Vitest | Aggregators and normalizers are pure and fully tested. |
-| Component tests | React Testing Library | Loading, error, and empty states. |
-| Lint / format | ESLint + Prettier | Enforced in CI. |
-| Package manager | pnpm | `pnpm-lock.yaml` committed; version pinned via `packageManager` in `package.json` (Corepack); CI uses `pnpm install --frozen-lockfile`. |
-| CI / deploy | GitHub Actions → GitHub Pages | Lint, typecheck, test, build, deploy on `main`. |
+| Concern         | Choice                                           | Notes                                                                                                                                   |
+| --------------- | ------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------- |
+| Language        | TypeScript (`strict: true`)                      | No `any` at module boundaries.                                                                                                          |
+| Build tool      | Vite                                             | Static output in `dist/`; `base` set for the GitHub Pages sub-path.                                                                     |
+| UI framework    | React                                            | Function components + hooks only.                                                                                                       |
+| Charts          | Recharts                                         | Declarative; wrap each chart so the library can be swapped later.                                                                       |
+| Heavy work      | Web Worker (Vite `?worker` import)               | JSON parsing + aggregation off the main thread.                                                                                         |
+| Data validation | Lightweight runtime guards (hand-written or Zod) | Normalize raw records into typed domain records.                                                                                        |
+| Styling         | CSS Modules + CSS custom properties              | Mobile-first (`min-width` queries only); design tokens for color/spacing; light & dark themes.                                          |
+| Unit tests      | Vitest                                           | Aggregators and normalizers are pure and fully tested.                                                                                  |
+| Component tests | React Testing Library                            | Loading, error, and empty states.                                                                                                       |
+| Lint / format   | ESLint + Prettier                                | Enforced in CI.                                                                                                                         |
+| Package manager | pnpm                                             | `pnpm-lock.yaml` committed; version pinned via `packageManager` in `package.json` (Corepack); CI uses `pnpm install --frozen-lockfile`. |
+| CI / deploy     | GitHub Actions → GitHub Pages                    | Lint, typecheck, test, build, deploy on `main`.                                                                                         |
 
 ## Architecture
 
@@ -51,7 +51,7 @@ Layering rules:
 
 ## Data handling
 
-- **Fetch:** `fetch()` against `data.techforpalestine.org` static JSON (minified v3 for *Killed in Gaza*).
+- **Fetch:** `fetch()` against `data.techforpalestine.org` static JSON (minified v3 for _Killed in Gaza_).
   Network/CORS failure shows a friendly error state with retry — the UI never breaks.
 - **Fallback (if CORS or availability becomes a problem):** a scheduled GitHub Action snapshots the JSON into the
   Pages build so the app fetches same-origin. Decide only if needed.

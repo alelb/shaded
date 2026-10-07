@@ -2,7 +2,7 @@
 
 ## Why Shaded exists
 
-*Shahed* (شاهد) means **witness** in Arabic. Shaded is a public, open-source dashboard that lets open data bear
+_Shahed_ (شاهد) means **witness** in Arabic. Shaded is a public, open-source dashboard that lets open data bear
 witness to the humanitarian situation in Gaza and the West Bank. It turns the datasets published by
 [Tech for Palestine](https://data.techforpalestine.org/) into clear, honest visualizations that anyone can understand
 without downloading or processing raw files.
@@ -43,12 +43,12 @@ Sober, factual, respectful. The data speaks; the interface does not editorialize
 
 ## Definitions (shared vocabulary)
 
-| Term | Meaning |
-|---|---|
-| Casualty / killed | A record in the *Killed in Gaza* dataset (v3). "Total" = count of records. |
-| Sex | `male`, `female`, or `Unknown / Not specified`. |
-| Age brackets | `0–17` (children, per UN CRC), `18–29`, `30–59`, `60+`, `Unknown`. |
-| Unknown | Field is missing, null, empty, or not parseable. |
+| Term              | Meaning                                                                    |
+| ----------------- | -------------------------------------------------------------------------- |
+| Casualty / killed | A record in the _Killed in Gaza_ dataset (v3). "Total" = count of records. |
+| Sex               | `male`, `female`, or `Unknown / Not specified`.                            |
+| Age brackets      | `0–17` (children, per UN CRC), `18–29`, `30–59`, `60+`, `Unknown`.         |
+| Unknown           | Field is missing, null, empty, or not parseable.                           |
 
 ## Out of scope (for now)
 

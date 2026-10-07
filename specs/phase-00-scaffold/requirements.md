@@ -39,13 +39,13 @@ and never has to touch tooling. Stakeholder stories: [3.1] modular layout, [3.2]
 
 ## Decisions
 
-| Decision | Choice | Rationale |
-|---|---|---|
-| Placeholder depth | Typed stubs + one sample test per test type | Later phases start from the agreed types and folders; the tests prove the toolchain works. |
-| Node version | 24 LTS (`.nvmrc` + `engines`) | Matches the local environment (v24.13) and is the current LTS. |
-| pnpm pinning | `packageManager` field (Corepack) | As set in `tech-stack.md`. |
-| ESLint preset | `typescript-eslint` recommended + `react-hooks` | Keeps the scaffold simple. Can be made stricter later. |
-| Test environment | Vitest + jsdom + RTL | As set in `tech-stack.md`. Pure modules are tested without the DOM. |
+| Decision          | Choice                                          | Rationale                                                                                  |
+| ----------------- | ----------------------------------------------- | ------------------------------------------------------------------------------------------ |
+| Placeholder depth | Typed stubs + one sample test per test type     | Later phases start from the agreed types and folders; the tests prove the toolchain works. |
+| Node version      | 24 LTS (`.nvmrc` + `engines`)                   | Matches the local environment (v24.13) and is the current LTS.                             |
+| pnpm pinning      | `packageManager` field (Corepack)               | As set in `tech-stack.md`.                                                                 |
+| ESLint preset     | `typescript-eslint` recommended + `react-hooks` | Keeps the scaffold simple. Can be made stricter later.                                     |
+| Test environment  | Vitest + jsdom + RTL                            | As set in `tech-stack.md`. Pure modules are tested without the DOM.                        |
 
 ## Context
 
