@@ -1,5 +1,9 @@
 # Shaded
 
+[![ci](https://github.com/alelb/shaded/actions/workflows/ci.yml/badge.svg)](https://github.com/alelb/shaded/actions/workflows/ci.yml)
+
+Live: <https://alelb.github.io/shaded/>
+
 _Shahed_ means witness in Arabic. Focuses on data as an objective witness to the humanitarian situation.
 
 ## Input request from stakeholders
@@ -92,3 +96,5 @@ pnpm install
 | `pnpm format:check` | Check formatting without writing             |
 
 Before pushing: `pnpm lint && pnpm typecheck && pnpm test && pnpm build && pnpm format:check`.
+
+**Deploy:** CI runs on every pull request and branch push; merging to `main` deploys to GitHub Pages.
