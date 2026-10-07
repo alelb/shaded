@@ -14,7 +14,7 @@ A UI phase is not done until it works on a phone (touch, no horizontal scroll, r
 - Folder layout from `tech-stack.md` with placeholder modules. [3.1, 3.2]
 - **Done when:** `pnpm lint && pnpm typecheck && pnpm test && pnpm build` pass locally.
 
-### Phase 1 — CI & deploy skeleton
+### Phase 1 — CI & deploy skeleton ✅
 
 - GitHub Actions: lint, typecheck, test, build; deploy to GitHub Pages on `main`.
 - Mobile-first app shell: single-column layout, design tokens (including `640px` / `1024px` breakpoints and a

@@ -20,3 +20,4 @@ All notable changes to Shaded, grouped by date (newest first).
 - Add the mobile-first app shell: light and dark design tokens, breakpoints, a skip link and page landmarks, an
   intro line, and a footer with Tech for Palestine attribution and the limitations note.
 - Add tests for the app shell and footer, and a CI badge, live URL, and deploy note to the README.
+- Complete Phase 1 — CI & deploy skeleton: the shell is live at <https://alelb.github.io/shaded/>.
