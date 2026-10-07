@@ -8,7 +8,7 @@ A UI phase is not done until it works on a phone (touch, no horizontal scroll, r
 
 ## Milestone A — Foundations
 
-### Phase 0 — Scaffold
+### Phase 0 — Scaffold ✅
 
 - Vite + React + TypeScript (strict) project with pnpm; ESLint, Prettier, Vitest.
 - Folder layout from `tech-stack.md` with placeholder modules. [3.1, 3.2]
