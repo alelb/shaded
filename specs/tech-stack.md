@@ -69,15 +69,30 @@ Layering rules:
 ## Mobile-first UI
 
 - **Base styles target ~360 px wide screens**; larger layouts are added only with `min-width` media queries
-  (never `max-width` overrides). Suggested breakpoints: `640px` (large phone / small tablet), `1024px` (desktop).
-- **Single-column layout by default**: KPI card first, then charts stacked. Multi-column grid from `1024px` up.
-- **Fluid sizing**: `clamp()` for type and spacing, 16 px side gutters, no horizontal page scroll at 320 px.
+  (never `max-width` overrides). Breakpoints are design tokens:
+
+  | Breakpoint         | Width              | What changes                                                                                                         |
+  | ------------------ | ------------------ | -------------------------------------------------------------------------------------------------------------------- |
+  | Base (phone)       | < `640px`          | Single column; 16 px side gutters; data tables shown as stacked lists; legends below charts.                         |
+  | `640px` (tablet)   | `640px` – `1023px` | Still single column for charts; 24 px gutters; KPI cards side by side in a row; data tables shown as regular tables. |
+  | `1024px` (desktop) | ≥ `1024px`         | Multi-column grid (charts two per row); KPI row above the grid.                                                      |
+
+- **Maximum content width**: content is centered and capped at `1200px` (`--content-max-width`), so lines and charts
+  never stretch across wide monitors. Backgrounds may span the full width.
+- **Single-column layout by default**: KPI card first, then charts stacked.
+- **Fluid sizing**: `clamp()` for type and spacing, sizes in `rem` (never fixed `px` font sizes), no horizontal page
+  scroll at 320 px.
+- **Landscape phones**: layouts must also work at ~640×360 (phone turned sideways). Chart height is capped relative to
+  the viewport (e.g. `min(<fixed height>, 70svh)`) so a whole chart fits on screen; no fixed full-height sections.
+- **Text zoom**: at 200% browser zoom, or with the browser's default font size raised, no content is clipped, overlapped,
+  or lost (WCAG 1.4.4 / 1.4.10 reflow); text wraps instead of truncating.
 - **Touch first**: tap targets ≥ 44×44 px; chart tooltips open on tap and never depend on hover; no hover-only info.
 - **Charts adapt to width**: wrap every chart in a `ResponsiveContainer`; on narrow screens prefer horizontal bars
   (readable category labels), fewer axis ticks, and legends placed below the chart.
-- **Data tables** collapse into a stacked/list layout on small screens instead of scrolling sideways.
+- **Data tables** collapse into a stacked/list layout below `640px` instead of scrolling sideways.
 - **Network-aware**: skeletons sized to the final layout (no layout shift), lazy-load chart code per view.
-- **Testing**: every phase is checked first at 360 px (Chrome DevTools device mode / a real phone), then at desktop.
+- **Testing**: every UI phase is checked first at 360 px (Chrome DevTools device mode / a real phone), then across this
+  matrix: 320 px, 360 px, 640×360 landscape, 768 px, 1024 px, 1440 px, and 360 px at 200% zoom.
 
 ## Accessibility
 

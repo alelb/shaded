@@ -17,9 +17,10 @@ A UI phase is not done until it works on a phone (touch, no horizontal scroll, r
 ### Phase 1 — CI & deploy skeleton
 
 - GitHub Actions: lint, typecheck, test, build; deploy to GitHub Pages on `main`.
-- Mobile-first app shell: single-column layout, design tokens, `min-width` breakpoints, title "Shaded",
-  footer with data attribution and limitations note.
-- **Done when:** an empty shell is live on the Pages URL and renders without horizontal scroll at 320–360 px.
+- Mobile-first app shell: single-column layout, design tokens (including `640px` / `1024px` breakpoints and a
+  `1200px` max content width), title "Shaded", footer with data attribution and limitations note.
+- **Done when:** an empty shell is live on the Pages URL and passes the responsive test matrix in `tech-stack.md`
+  (no horizontal scroll at 320–360 px, works in landscape and at 200% zoom, content capped on wide screens).
 
 ## Milestone B — Gaza demographics MVP
 
@@ -64,7 +65,8 @@ A UI phase is not done until it works on a phone (touch, no horizontal scroll, r
 ### Phase 10 — MVP hardening
 
 - Accessibility pass (contrast, keyboard, screen-reader summaries), dark mode.
-- Desktop enhancement: multi-column grid from `1024px`; re-check on a real low-end phone over a throttled network.
+- Tablet and desktop enhancement: KPI row and regular tables from `640px`, multi-column grid from `1024px`;
+  full responsive test matrix (incl. landscape and 200% zoom); re-check on a real low-end phone over a throttled network.
 - Performance budget check (bundle size, Lighthouse mobile ≥ 90).
 - **Done when:** MVP released on GitHub Pages. 🎯
 
