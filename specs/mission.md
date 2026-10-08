@@ -28,7 +28,7 @@ Sober, factual, respectful. The data speaks; the interface does not editorialize
    projection presented as fact.
 2. **Transparency about limitations.** Reported figures may undercount the real toll (information disruption,
    unrecovered bodies). This caveat is always visible near the figures, not buried.
-3. **Missing data is data.** Records with unknown age or unspecified sex are counted in an explicit
+3. **Missing data is data.** A record with a missing or unparseable value is counted in an explicit
    "Unknown / Not specified" bucket — never silently dropped, never guessed.
 4. **Source attribution.** Every view cites its dataset, links to the Tech for Palestine portal, and shows when
    the data was last updated.
@@ -41,14 +41,10 @@ Sober, factual, respectful. The data speaks; the interface does not editorialize
 8. **Built to grow.** New datasets (West Bank, time-series, press, infrastructure) plug in as new views without
    rewriting the core.
 
-## Definitions (shared vocabulary)
+## Data
 
-| Term              | Meaning                                                                    |
-| ----------------- | -------------------------------------------------------------------------- |
-| Casualty / killed | A record in the _Killed in Gaza_ dataset (v3). "Total" = count of records. |
-| Sex               | `male`, `female`, or `Unknown / Not specified`.                            |
-| Age brackets      | `0–17` (children, per UN CRC), `18–29`, `30–59`, `60+`, `Unknown`.         |
-| Unknown           | Field is missing, null, empty, or not parseable.                           |
+Definitions of the data, datasets, their structure, and value rules change over time and
+live in [`docs/data-sources.md`](../docs/data-sources.md), not in this document.
 
 ## Out of scope (for now)
 

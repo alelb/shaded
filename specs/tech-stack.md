@@ -51,8 +51,9 @@ Layering rules:
 
 ## Data handling
 
-- **Fetch:** `fetch()` against `data.techforpalestine.org` static JSON (minified v3 for _Killed in Gaza_).
-  Network/CORS failure shows a friendly error state with retry — the UI never breaks.
+- **Fetch:** `fetch()` against the static JSON published on `data.techforpalestine.org`. The endpoint and format
+  used for each dataset are listed in [`docs/data-sources.md`](../docs/data-sources.md). Network/CORS failure
+  shows a friendly error state with retry — the UI never breaks.
 - **Fallback (if CORS or availability becomes a problem):** a scheduled GitHub Action snapshots the JSON into the
   Pages build so the app fetches same-origin. Decide only if needed.
 - **Missing data:** normalizers map `null`, `undefined`, empty strings, and unparseable values to an explicit
