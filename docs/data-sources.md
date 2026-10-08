@@ -49,12 +49,15 @@ Records of individual people killed in Gaza, identified by name. Shaded uses onl
 
 ### Field values and rules
 
-| Field | Observed (2026-10-07)        | Rule in Shaded                                                                                  |
-| ----- | ---------------------------- | ----------------------------------------------------------------------------------------------- |
-| `age` | Integer from 0 to 110        | Whole years. Missing, empty, or unparseable → Unknown.                                          |
-| `age` | `0` in 1,072 records         | **`0` is a real age: a child under one year.** Never treated as Unknown (confirmed 2026-10-08). |
-| `sex` | `"m"` or `"f"`               | `m` → male, `f` → female. Missing or any other value → Unknown / Not specified.                 |
-| any   | No null or empty values seen | The code still handles missing values: upstream data can change without notice.                 |
+| Field | Observed (2026-10-07)        | Rule in Shaded                                                                                                                                                                         |
+| ----- | ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `age` | Integer from 0 to 110        | Whole years: an integer number or integer string (trimmed) from 0 to 120. Anything else (missing, empty, negative, fractional, above 120, non-numeric) → Unknown (decided 2026-10-08). |
+| `age` | `0` in 1,072 records         | **`0` is a real age: a child under one year.** Never treated as Unknown (confirmed 2026-10-08).                                                                                        |
+| `sex` | `"m"` or `"f"`               | Trimmed, case-insensitive: `m` or `male` → male, `f` or `female` → female. Missing or any other value → Unknown / Not specified (decided 2026-10-08).                                  |
+| any   | No null or empty values seen | The code still handles missing values: upstream data can change without notice.                                                                                                        |
+
+Normalizer: `src/data/normalize/killedInGaza.ts`, with shared value parsers in `src/data/normalize/values.ts`
+(Phase 3). Every row becomes one record: no row is dropped.
 
 ### Transfer and headers (observed 2026-10-07)
 
