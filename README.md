@@ -34,46 +34,13 @@ As a project owner, I want the initial architecture to be modular so that future
 - User Story 3.1 (Modular UI Layout): As a developer, the codebase must separate data-fetching services, data-transformation logic (aggregators), and UI components cleanly.
 - User Story 3.2 (Technical request): Use TypeScript, when it is feasible.
 
-## 📊 Data Sources & API Endpoints
+## Data sources
 
-This project integrates open datasets provided by the **Tech for Palestine Datasets** initiative. These datasets track the human toll of the ongoing conflict since October 7, 2023, sourced from official reports, public submissions, and humanitarian databases.
+Shaded uses open datasets published by [Tech for Palestine](https://data.techforpalestine.org/): killed in Gaza
+(names list with age and sex), Gaza daily casualties, West Bank daily reports, press killed in Gaza, and
+infrastructure damage. These datasets reflect reported figures and may not capture the entire human toll.
 
-### 1. Killed in Gaza (Demographics & Names List)
-
-- **Description:** Detailed records of individual fatalities in Gaza, including name, age, date of birth, and sex. Used for demographic filtering, age group distributions, and gender breakdown charts.
-- **Formats & Endpoints:**
-  - Minified JSON (v3): `https://data.techforpalestine.org/api/v3/killed-in-gaza.min.json`
-  - CSV Format: `https://data.techforpalestine.org/api/v3/killed-in-gaza.csv`
-  - Paged JSON (v2): `https://data.techforpalestine.org/api/v2/killed-in-gaza/page-1.json` _(incrementally from page 1 onwards)_
-
-### 2. Daily Casualties (Gaza Time-Series)
-
-- **Description:** Daily reports tracking aggregate killed and injured counts over time in the Gaza Strip.
-- **Formats & Endpoints:**
-  - JSON: `https://data.techforpalestine.org/api/v2/casualties_daily.json`
-  - Minified JSON: `https://data.techforpalestine.org/api/v2/casualties_daily.min.json`
-  - CSV: `https://data.techforpalestine.org/api/v2/casualties_daily.csv`
-
-### 3. West Bank Daily Reports
-
-- **Description:** Daily reports tracking killed, injured, and settler attack counts across the West Bank.
-- **Formats & Endpoints:**
-  - JSON: `https://data.techforpalestine.org/api/v2/west_bank_daily.json`
-  - Minified JSON: `https://data.techforpalestine.org/api/v2/west_bank_daily.min.json`
-
-### 4. Press Killed in Gaza
-
-- **Description:** Specific registry of journalists and press workers killed during the hostilities.
-- **Formats & Endpoints:**
-  - JSON: `https://data.techforpalestine.org/api/v2/press_killed_in_gaza.json`
-
-### 5. Infrastructure Damage Reports
-
-- **Description:** Weekly reports estimating damage to vital human infrastructure in Gaza.
-- **Formats & Endpoints:**
-  - JSON: `https://data.techforpalestine.org/api/v2/infrastructure-damaged.json`
-
-> **Note on Data Limitations:** As documented by the maintainers, these datasets reflect reported figures and may not fully capture the entire human toll due to information disruptions and unrecovered bodies under rubble. Official documentation and schema updates can be found on the [Tech for Palestine Data Portal](https://data.techforpalestine.org/).
+Endpoints, structure, and value rules for each dataset: [`docs/data-sources.md`](docs/data-sources.md).
 
 ## Development
 

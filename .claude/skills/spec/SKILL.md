@@ -3,7 +3,7 @@ name: spec
 description: Start the next roadmap phase. Finds the first unfinished phase in specs/roadmap.md, creates its branch, interviews the user, then writes specs/phase-NN-feature-name/ with plan.md, requirements.md and validation.md. Run manually when starting a new feature.
 disable-model-invocation: true
 argument-hint: '[phase number, optional]'
-allowed-tools: Bash(git status:*), Bash(git branch:*), Bash(git switch:*), Bash(git checkout:*), Bash(git log:*), Bash(git pull:*), Bash(ls:*), Bash(pnpm exec prettier:*), Read, Glob, Grep, Write, AskUserQuestion
+allowed-tools: Bash(git status:*), Bash(git branch:*), Bash(git switch:*), Bash(git checkout:*), Bash(git log:*), Bash(git pull:*), Bash(ls:*), Bash(pnpm exec prettier:*), Read, Glob, Grep, Write, Edit, AskUserQuestion
 ---
 
 # Spec
@@ -16,7 +16,8 @@ Turn the next phase of `specs/roadmap.md` into a reviewed spec on its own branch
 **read-only**: never edit them, not even to add a definition or a dataset detail. They are evaluated and changed
 only in a dedicated replanning phase.
 
-- Dataset-specific facts and decisions (field values, schema details, quirks) go in the phase's `requirements.md`.
+- Dataset facts and value rules (endpoints, structure, field values, quirks) go in `docs/data-sources.md`, which is
+  meant to change (see step 5). The phase's `requirements.md` links to it rather than repeating it.
 - If the phase seems to need a change to either file (a conflict, a gap, an outdated rule), do not make it. Add it
   under **Needs attention** in your final report (step 6) so the user can plan it for a replanning phase.
 
@@ -46,6 +47,7 @@ Read before asking anything, so the questions are specific rather than generic:
 - The phase entry in `specs/roadmap.md`, its stakeholder story references (e.g. `[1.2]`), and its **Done when**.
 - The previous phase's spec folder, to match tone, structure and level of detail.
 - The source files the phase will touch (placeholders, modules from earlier phases).
+- `docs/data-sources.md`: what is already known about the datasets the phase uses.
 - If the phase depends on external data or an API, profile it (shape, size, headers, CORS) and record the date.
 
 ### 4. Interview the user
@@ -62,7 +64,7 @@ Skip a question whose answer is already fixed by the specs or the code; do not a
 
 ### 5. Write the spec
 
-Write only inside `specs/<slug>/`. Create three files. Each starts with `# Phase N — Title: <Plan|Requirements|Validation>`.
+Write only inside `specs/<slug>/` and, when the phase involves a dataset, `docs/data-sources.md`. Create three files. Each starts with `# Phase N — Title: <Plan|Requirements|Validation>`.
 
 - **`requirements.md`** — `## Goal` (what and why, stakeholder stories), context and observed facts (dated),
   `## In scope` with the decisions taken, `## Out of scope`, and open questions if any.
@@ -74,7 +76,11 @@ Write only inside `specs/<slug>/`. Create three files. Each starts with `# Phase
   `pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm build`, the specific tests as `- [ ]`
   checkboxes, and `## Manual checks` (for UI phases: the mobile-first responsive matrix from `tech-stack.md`).
 
-Keep the roadmap's **Done when** reflected in `validation.md`. Run `pnpm exec prettier --write specs/<slug>` so
+If the phase profiles a dataset or decides a value rule, update `docs/data-sources.md`: add or update the dataset's
+section (catalog row, dated structure observations, value rules with the date they were decided). Keep
+`requirements.md` to the phase's decisions and link to the doc for dataset facts.
+
+Keep the roadmap's **Done when** reflected in `validation.md`. Run `pnpm exec prettier --write specs/<slug> docs` so
 `pnpm format:check` keeps passing.
 
 ### 6. Report and stop
@@ -82,5 +88,5 @@ Keep the roadmap's **Done when** reflected in `validation.md`. Run `pnpm exec pr
 - Summarize the three files in a few lines and list any open questions.
 - **Needs attention:** list anything in `mission.md` or `tech-stack.md` that looks outdated, conflicting, or
   missing for this phase, with the file, the line, and why. Say "none" if there is nothing.
-- Run `git status --short` and confirm that only `specs/<slug>/` changed.
+- Run `git status --short` and confirm that only `specs/<slug>/` and, if needed, `docs/data-sources.md` changed.
 - **Do not commit.** The user reviews the spec first; commit (e.g. "Add Phase N specs: Title") only when asked.
