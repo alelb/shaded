@@ -10,6 +10,16 @@ allowed-tools: Bash(git status:*), Bash(git branch:*), Bash(git switch:*), Bash(
 
 Turn the next phase of `specs/roadmap.md` into a reviewed spec on its own branch.
 
+## Read-only: mission and tech stack
+
+`specs/mission.md` and `specs/tech-stack.md` are the project's constitution. While writing a phase spec they are
+**read-only**: never edit them, not even to add a definition or a dataset detail. They are evaluated and changed
+only in a dedicated replanning phase.
+
+- Dataset-specific facts and decisions (field values, schema details, quirks) go in the phase's `requirements.md`.
+- If the phase seems to need a change to either file (a conflict, a gap, an outdated rule), do not make it. Add it
+  under **Needs attention** in your final report (step 6) so the user can plan it for a replanning phase.
+
 ## Steps
 
 ### 1. Pick the phase
@@ -32,6 +42,7 @@ Turn the next phase of `specs/roadmap.md` into a reviewed spec on its own branch
 Read before asking anything, so the questions are specific rather than generic:
 
 - `specs/mission.md` and `specs/tech-stack.md` (guidance for scope, stack, folder layout, responsive rules).
+  Read-only: see above.
 - The phase entry in `specs/roadmap.md`, its stakeholder story references (e.g. `[1.2]`), and its **Done when**.
 - The previous phase's spec folder, to match tone, structure and level of detail.
 - The source files the phase will touch (placeholders, modules from earlier phases).
@@ -51,7 +62,7 @@ Skip a question whose answer is already fixed by the specs or the code; do not a
 
 ### 5. Write the spec
 
-Create `specs/<slug>/` with three files. Each starts with `# Phase N — Title: <Plan|Requirements|Validation>`.
+Write only inside `specs/<slug>/`. Create three files. Each starts with `# Phase N — Title: <Plan|Requirements|Validation>`.
 
 - **`requirements.md`** — `## Goal` (what and why, stakeholder stories), context and observed facts (dated),
   `## In scope` with the decisions taken, `## Out of scope`, and open questions if any.
@@ -69,4 +80,7 @@ Keep the roadmap's **Done when** reflected in `validation.md`. Run `pnpm exec pr
 ### 6. Report and stop
 
 - Summarize the three files in a few lines and list any open questions.
+- **Needs attention:** list anything in `mission.md` or `tech-stack.md` that looks outdated, conflicting, or
+  missing for this phase, with the file, the line, and why. Say "none" if there is nothing.
+- Run `git status --short` and confirm that only `specs/<slug>/` changed.
 - **Do not commit.** The user reviews the spec first; commit (e.g. "Add Phase N specs: Title") only when asked.
