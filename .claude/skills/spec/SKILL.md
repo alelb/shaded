@@ -2,7 +2,7 @@
 name: spec
 description: Start the next roadmap phase. Finds the first unfinished phase in specs/roadmap.md, creates its branch, interviews the user, then writes specs/phase-NN-feature-name/ with plan.md, requirements.md and validation.md. Run manually when starting a new feature.
 disable-model-invocation: true
-argument-hint: "[phase number, optional]"
+argument-hint: '[phase number, optional]'
 allowed-tools: Bash(git status:*), Bash(git branch:*), Bash(git switch:*), Bash(git checkout:*), Bash(git log:*), Bash(git pull:*), Bash(ls:*), Bash(pnpm exec prettier:*), Read, Glob, Grep, Write, AskUserQuestion
 ---
 
@@ -55,7 +55,7 @@ Create `specs/<slug>/` with three files. Each starts with `# Phase N — Title: 
 
 - **`requirements.md`** — `## Goal` (what and why, stakeholder stories), context and observed facts (dated),
   `## In scope` with the decisions taken, `## Out of scope`, and open questions if any.
-- **`plan.md`** — `Branch: \`<slug>\`` line, then numbered task groups (`## 1. Title`) with numbered tasks
+- **`plan.md`** — ``Branch: `<slug>` `` line, then numbered task groups (`## 1. Title`) with numbered tasks
   (`1.1`, `1.2`, …). Each task is small and concrete (file paths, function names). The last groups cover tests,
   docs, and updating `specs/roadmap.md`.
 - **`validation.md`** — "The branch can be merged when every item below holds on `<slug>`.", then
