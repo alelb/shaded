@@ -1,6 +1,15 @@
-import { render, screen } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
+import { render, screen, within } from '@testing-library/react';
+import { describe, expect, it, vi } from 'vitest';
 import { App } from './App.tsx';
+
+vi.mock('../hooks/useDataset.ts', () => ({
+  useDataset: () => ({
+    status: 'success',
+    data: { demographics: { total: 72_835, bySex: [], byAgeBracket: [] }, summary: null },
+    error: null,
+    retry: () => {},
+  }),
+}));
 
 describe('App', () => {
   it('renders the "Shaded" heading and intro line', () => {
@@ -9,11 +18,13 @@ describe('App', () => {
     expect(screen.getByText(/open data bearing witness/i)).toBeInTheDocument();
   });
 
-  it('renders the main landmark with the placeholder', () => {
+  it('renders the Gaza demographics view in the main landmark', () => {
     render(<App />);
     const main = screen.getByRole('main');
     expect(main).toHaveAttribute('id', 'main');
-    expect(main).toHaveTextContent('Data views are being prepared.');
+    expect(
+      within(main).getByRole('figure', { name: 'People killed in Gaza identified by name' }),
+    ).toHaveTextContent('72,835');
   });
 
   it('renders the skip link as the first link, targeting #main', () => {

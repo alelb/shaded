@@ -1,0 +1,20 @@
+.view {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.named {
+  display: grid;
+  gap: var(--space-1);
+  max-width: 40rem;
+}
+
+.namedValue {
+  font-size: var(--font-size-lg);
+  font-variant-numeric: tabular-nums;
+}
+
+.namedNote {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}

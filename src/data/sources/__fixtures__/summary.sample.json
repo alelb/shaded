@@ -1,0 +1,13 @@
+{
+  "gaza": {
+    "reports": 1097,
+    "last_update": "2026-10-07",
+    "killed": {
+      "total": 74250
+    }
+  },
+  "known_killed_in_gaza": {
+    "records": 72835,
+    "last_update": "2026-07-27"
+  }
+}

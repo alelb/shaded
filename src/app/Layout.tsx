@@ -13,7 +13,7 @@ export function Layout({ children }: { children: ReactNode }) {
         <div className={styles.inner}>
           <h1 className={styles.title}>Shaded</h1>
           <p className={styles.intro}>
-            Open data bearing witness to the human toll in Gaza and the West Bank.
+            Open data bearing witness to Palestinians killed by Israel in Gaza and the West Bank.
           </p>
         </div>
       </header>
