@@ -29,7 +29,7 @@ A UI phase is not done until it works on a phone (touch, no horizontal scroll, r
 - Raw TypeScript type for the v3 minified JSON; fetcher with timeout and typed errors. [2.1]
 - **Done when:** a test with a fixture parses the raw shape; manual check that the live endpoint loads from the browser (CORS confirmed).
 
-### Phase 3 — Normalizer
+### Phase 3 — Normalizer ✅
 
 - Raw record → domain record `{ sex: 'male'|'female'|'unknown', age: number|null }`. [2.2]
 - **Done when:** unit tests cover null, missing, empty, negative, and non-numeric values.

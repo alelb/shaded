@@ -11,6 +11,7 @@ All notable changes to Shaded, grouped by date (newest first).
   performance check.
 - Confirm the normalizer on live Killed in Gaza data: 72,835 records (50,959 male, 21,876 female, 1,072 aged 0), no
   Unknown values.
+- Complete Phase 3 — Normalizer.
 
 ## 2026-10-08
 
