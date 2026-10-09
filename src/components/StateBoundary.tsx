@@ -12,6 +12,18 @@ export interface StateBoundaryProps {
   children: ReactNode;
 }
 
+/** The shared error message with Retry. Technical error details are never shown. */
+export function LoadError({ onRetry }: { onRetry: () => void }) {
+  return (
+    <div className={styles.message}>
+      <p role="alert">We couldn&apos;t load the data. Check your connection and try again.</p>
+      <button type="button" className={styles.retry} onClick={onRetry}>
+        Retry
+      </button>
+    </div>
+  );
+}
+
 // Shared loading / error / empty / success states for a data view. Technical error details are never shown.
 export function StateBoundary({
   status,
@@ -28,16 +40,7 @@ export function StateBoundary({
       </div>
     );
   }
-  if (status === 'error') {
-    return (
-      <div className={styles.message}>
-        <p role="alert">We couldn&apos;t load the data. Check your connection and try again.</p>
-        <button type="button" className={styles.retry} onClick={onRetry}>
-          Retry
-        </button>
-      </div>
-    );
-  }
+  if (status === 'error') return <LoadError onRetry={onRetry} />;
   if (isEmpty) {
     return (
       <div className={styles.message}>
