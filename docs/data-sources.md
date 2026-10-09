@@ -18,6 +18,7 @@ a new dataset is added, or when a value rule is decided. Always date observation
 | Casualty / killed | A person recorded as killed in a source dataset. "Total" = count of those records. |
 | Sex               | `male`, `female`, or `Unknown / Not specified`.                                    |
 | Age brackets      | `0–17` (children, per UN CRC), `18–29`, `30–59`, `60+`, `Unknown`.                 |
+| Bracket bounds    | Inclusive integer ranges; `60+` is 60–120; `age` Unknown → `Unknown` (2026-10-09). |
 | Unknown           | Field is missing, null, empty, or not parseable.                                   |
 
 ## Catalog
@@ -25,6 +26,7 @@ a new dataset is added, or when a value rule is decided. Always date observation
 | Dataset               | Status                | Endpoint used by Shaded                                                | Source module                      |
 | --------------------- | --------------------- | ---------------------------------------------------------------------- | ---------------------------------- |
 | Killed in Gaza        | In use (Phase 2)      | `https://data.techforpalestine.org/api/v3/killed-in-gaza.min.json`     | `src/data/sources/killedInGaza.ts` |
+| Summary               | In use (Phase 4–7)    | `https://data.techforpalestine.org/api/v3/summary.json`                | `src/data/sources/summary.ts`      |
 | Gaza daily casualties | Planned (Phase 12)    | `https://data.techforpalestine.org/api/v2/casualties_daily.min.json`   |                                    |
 | West Bank daily       | Planned (Phase 14)    | `https://data.techforpalestine.org/api/v2/west_bank_daily.min.json`    |                                    |
 | Press killed in Gaza  | Later (not scheduled) | `https://data.techforpalestine.org/api/v2/press_killed_in_gaza.json`   |                                    |
@@ -63,13 +65,46 @@ Every row becomes one record: no row is dropped.
 
 - 8.2 MB uncompressed, about 2.3 MB with Brotli (`content-encoding: br`).
 - `access-control-allow-origin: *` (CORS open; confirmed from the GitHub Pages origin).
-- `cache-control: public, max-age=0, must-revalidate`, with an `etag`. No `last-modified`.
+- `cache-control: public, max-age=0, must-revalidate`, with an `etag`. No `last-modified` (re-checked 2026-10-09):
+  the dataset date comes from [Summary](#summary).
 
 ### Notes
 
 - `summary.json` reports `gaza.killed.total = 74,250`, while this dataset has 72,835 named records: the list covers
   identified people only. A total based on this dataset should be labelled accordingly (for example, "identified by
   name").
+
+## Summary
+
+Headline figures across the datasets, maintained by Tech for Palestine. Shaded uses it only for the dates of the
+Killed in Gaza list and for the reported total killed in Gaza, shown as a separate, attributed figure.
+
+- **Endpoint:** `https://data.techforpalestine.org/api/v3/summary.json`.
+
+### Structure (observed 2026-10-09)
+
+- One JSON object, about 1.2 kB. Top-level keys: `gaza`, `west_bank`, `lebanon`, `known_killed_in_gaza`,
+  `known_press_killed_in_gaza`.
+- `known_killed_in_gaza`: `records` (72,835, equal to the Killed in Gaza row count), `pages`, `page_size`,
+  `male` / `female` split into `child` / `adult` / `senior`, `last_update` (`"2026-07-27"`), and `includes_until`
+  (`"2026-05-07"`).
+- `gaza`: `reports`, `last_update` (`"2026-10-07"`), and `killed.total` (74,250), plus other counts that Shaded does not
+  use.
+- Headers: `access-control-allow-origin: *`, `cache-control: public, max-age=0, must-revalidate`.
+
+### Field values and rules (decided 2026-10-09)
+
+| Field                                 | Rule in Shaded                                                                                                    |
+| ------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| `known_killed_in_gaza.last_update`    | Shown as the Killed in Gaza "last updated" date. Kept only if it is a `YYYY-MM-DD` string; otherwise unavailable. |
+| `known_killed_in_gaza.includes_until` | Shown as "records up to". Same date rule.                                                                         |
+| `known_killed_in_gaza.records`        | Not displayed; used only to cross-check the live total. Kept only if it is a non-negative integer.                |
+| `gaza.killed.total`                   | Shown as a separate reported-total line, never merged with the named count. Same integer rule.                    |
+| `gaza.last_update`                    | The "as of" date of the reported total. Same date rule.                                                           |
+| `male` / `female` splits              | Not used: their child / adult / senior bands differ from Shaded's age brackets.                                   |
+
+If `summary.json` fails or is malformed, the Killed in Gaza figures still show; only the dates and the reported total
+are left out.
 
 ## Gaza daily casualties
 
