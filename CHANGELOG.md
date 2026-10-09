@@ -36,6 +36,7 @@ All notable changes to Shaded, grouped by date (newest first).
 - Add the "Sex" and "Age" charts below the KPI card: lazy-loaded and preloaded on mount, an empty Unknown bucket is
   not drawn, and a failed chart download shows Retry while the KPI stays visible.
 - Add a chart bar color token with at least 3:1 contrast in light and dark mode.
+- Complete Phase 8–9 — Demographic charts: the sex and age charts are live at <https://alelb.github.io/shaded/>.
 
 ## 2026-10-08
 

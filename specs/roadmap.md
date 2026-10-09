@@ -49,17 +49,18 @@ so the first real data reaches the published site. Phase numbers are kept so ear
 - **Done when:** the KPI card is live on the Pages URL at 360 px; component tests cover loading, error, empty and
   success; tests prove the breakdown invariant; main thread shows no long tasks during load (DevTools performance check).
 
-### Phase 8–9 — Demographic charts [1.2, 1.3]
+### Phase 8–9 — Demographic charts [1.2, 1.3] ✅
 
 Merges the former Phases 8 (Sex breakdown chart) and 9 (Age distribution chart): both share Recharts, a `ChartFrame`
-wrapper, the text summary and the data table.
+wrapper and the text summary.
 
-- Recharts lazy-loaded with the view; `ChartFrame` wraps `ResponsiveContainer`, tap-to-show values, text summary and
-  toggleable data table (stacked list below `640px`).
-- Sex chart: horizontal bars Male / Female / Unknown with readable labels on narrow screens.
+- Recharts lazy-loaded with the view; `ChartFrame` wraps the chart, with counts on the bars, tap-to-show shares, and
+  a text summary for screen readers (no data table, decided in review).
+- Sex chart: horizontal bars Male / Female / Unknown with readable labels on narrow screens; an empty Unknown bucket
+  is not drawn.
 - Age chart: horizontal bars across the five brackets; children (0–17) highlighted in the summary text.
 - **Done when:** both charts are live on the Pages URL, readable at 360 px with no horizontal scroll, and their
-  summaries and tables match the aggregator output.
+  summaries match the aggregator output.
 
 ### Phase 10 — MVP hardening
 
