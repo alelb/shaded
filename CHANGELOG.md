@@ -26,6 +26,16 @@ All notable changes to Shaded, grouped by date (newest first).
 - Reword the header intro: "Open data bearing witness to Palestinians killed by Israel in Gaza and the West Bank."
 - Remove the footer "Source code" link and the max-width on the intro and the limitations note.
 - Complete Phase 4–7 — First live view: the KPI card is live at <https://alelb.github.io/shaded/>.
+- Add the Phase 8–9 Demographic charts spec (requirements, plan, validation).
+- Add Recharts, isolated in a `HorizontalBarChart` component: counts written on every bar, a tap/click tooltip with
+  count and share, the Unknown bucket hatched, wrapped category labels, and no animation.
+- Add `ChartFrame`: a figure named by its title and described by a visually hidden text summary, with a plot height
+  that follows the number of bars and a same-height skeleton.
+- Add `formatShare` (one decimal, `<0.1%` for tiny non-zero shares) and plain-language sex and age summaries that
+  lead with children (0–17) and always state the Unknown count.
+- Add the "Sex" and "Age" charts below the KPI card: lazy-loaded and preloaded on mount, an empty Unknown bucket is
+  not drawn, and a failed chart download shows Retry while the KPI stays visible.
+- Add a chart bar color token with at least 3:1 contrast in light and dark mode.
 
 ## 2026-10-08
 
