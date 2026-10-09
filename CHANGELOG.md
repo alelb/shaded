@@ -2,6 +2,20 @@
 
 All notable changes to Shaded, grouped by date (newest first).
 
+## 2026-10-09
+
+- Revise the Phase 3 spec: a minimal defensive person normalizer instead of per-dataset modules or a generic engine.
+- Add the person normalizer (`normalize/person.ts`): raw `{ age, sex }` rows become typed records; missing or
+  unparseable values become Unknown, `0` is kept as a real age, and no row is dropped.
+- Add table-driven tests for the age and sex rules, fixture-to-records and messy-row tests, and a 75,000-row
+  performance check.
+- Confirm the normalizer on live Killed in Gaza data: 72,835 records (50,959 male, 21,876 female, 1,072 aged 0), no
+  Unknown values.
+
+## 2026-10-08
+
+- Add the Phase 3 Normalizer spec (requirements, plan, validation).
+
 ## 2026-10-07
 
 - Add project documentation: README with stakeholder requests and data sources, mission, roadmap, and tech stack.
