@@ -34,33 +34,31 @@ A UI phase is not done until it works on a phone (touch, no horizontal scroll, r
 - Raw record → domain record `{ sex: 'male'|'female'|'unknown', age: number|null }`. [2.2]
 - **Done when:** unit tests cover null, missing, empty, negative, and non-numeric values.
 
-### Phase 4 — Aggregators
+### Phase 4–7 — First live view: total KPI [1.1, 2.1–2.3]
 
-- `total()`, `bySex()`, `byAgeBracket()` with brackets `0–17, 18–29, 30–59, 60+, Unknown`. [1.1–1.3, 2.2]
-- **Done when:** tests prove every breakdown sums to the total.
+Merges the former Phases 4 (Aggregators), 5 (Web Worker + `useDataset`), 6 (Shared UI states) and 7 (Total KPI card)
+so the first real data reaches the published site. Phase numbers are kept so earlier specs stay valid.
 
-### Phase 5 — Web Worker + `useDataset` hook
+- Aggregators `total()`, `bySex()`, `byAgeBracket()` with brackets `0–17, 18–29, 30–59, 60+, Unknown`;
+  tests prove every breakdown sums to the total.
+- Worker does fetch → normalize → aggregate and posts the results; `useDataset()` exposes `{status, data, error, retry}`.
+- `StateBoundary` (loading skeleton sized to the final card, error with retry, empty) and `SourceNote`.
+- `KpiCard` with the total count, clearly labelled as people identified by name (see Phase 2 notes), source and
+  "last updated" line; the Gaza demographics view replaces the shell placeholder.
+- **Done when:** the KPI card is live on the Pages URL at 360 px; component tests cover loading, error, empty and
+  success; tests prove the breakdown invariant; main thread shows no long tasks during load (DevTools performance check).
 
-- Worker does fetch → normalize → aggregate and posts results; hook exposes `{status, data, error, retry}`. [2.3]
-- **Done when:** main thread shows no long tasks during load (DevTools performance check).
+### Phase 8–9 — Demographic charts [1.2, 1.3]
 
-### Phase 6 — Shared UI states
+Merges the former Phases 8 (Sex breakdown chart) and 9 (Age distribution chart): both share Recharts, a `ChartFrame`
+wrapper, the text summary and the data table.
 
-- `StateBoundary` for loading skeleton, error with retry, and empty states; `SourceNote` component. [2.1]
-- **Done when:** component tests cover each state.
-
-### Phase 7 — Total KPI card [1.1]
-
-- Prominent total count with source and "last updated" line.
-
-### Phase 8 — Sex breakdown chart [1.2]
-
-- Horizontal bar chart with Male / Female / Unknown (readable labels on narrow screens), tap-to-show values,
-  plus text summary and data table.
-
-### Phase 9 — Age distribution chart [1.3]
-
-- Horizontal bar chart across the five brackets on mobile; children (0–17) highlighted in the summary text.
+- Recharts lazy-loaded with the view; `ChartFrame` wraps `ResponsiveContainer`, tap-to-show values, text summary and
+  toggleable data table (stacked list below `640px`).
+- Sex chart: horizontal bars Male / Female / Unknown with readable labels on narrow screens.
+- Age chart: horizontal bars across the five brackets; children (0–17) highlighted in the summary text.
+- **Done when:** both charts are live on the Pages URL, readable at 360 px with no horizontal scroll, and their
+  summaries and tables match the aggregator output.
 
 ### Phase 10 — MVP hardening
 
