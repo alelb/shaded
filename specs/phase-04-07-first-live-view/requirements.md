@@ -3,9 +3,9 @@
 ## Goal
 
 Get the first real figure onto the published site. The Killed in Gaza dataset is fetched, normalized, and
-aggregated in a Web Worker. A Gaza demographics view then shows one KPI card with the number of people killed in Gaza
-who are identified by name, together with its source and the date the dataset was last updated. The card replaces
-the shell placeholder.
+aggregated in a Web Worker. A Gaza demographics view then shows one KPI card: the total killed in Gaza from the Gaza
+daily reports as the main figure, and below it, smaller, the number of people identified by name. Each figure shows its
+own source and date. The card replaces the shell placeholder.
 
 This phase merges the former Phases 4 (Aggregators), 5 (Web Worker + `useDataset`), 6 (Shared UI states) and 7
 (Total KPI card). Stakeholder stories:
@@ -53,7 +53,7 @@ Pure functions, with no React, DOM, or network. Each one makes a single pass and
 
 - `SUMMARY_URL = 'https://data.techforpalestine.org/api/v3/summary.json'`.
 - `SummaryFacts`:
-  - `killedInGaza: { lastUpdate: string | null; includesUntil: string | null; records: number | null }`, taken from
+  - `killedInGaza: { lastUpdate: string | null; records: number | null }`, taken from
     `known_killed_in_gaza`;
   - `gazaReported: { killedTotal: number | null; lastUpdate: string | null }`, taken from `gaza.killed.total` and
     `gaza.last_update`.
@@ -103,25 +103,28 @@ least 44 px.
 - `KpiCard`: `{ label, value, description?, footer? }`. The value is formatted with
   `Intl.NumberFormat('en')` (72,835). `KpiCardSkeleton` uses the same container class and min-height, so swapping
   it for the card causes no layout shift.
-- `SourceNote`: `{ datasetName, href, lastUpdate, includesUntil }`.
-  - "Source: Killed in Gaza, Tech for Palestine", with a link to the portal.
-  - "Dataset last updated 27 July 2026 (records up to 7 May 2026)". Dates are formatted with
-    `Intl.DateTimeFormat('en', { dateStyle: 'long', timeZone: 'UTC' })`. When the date is `null`, the line reads
-    "Last update date unavailable."
-  - A one-line limitations caveat ("Reported figures may undercount the real toll."), so it stays near the figure
-    (mission principle 2) as well as in the footer.
+- `SourceNote`: `{ datasetName, href }`.
+  - "Source: Gaza daily reports and Killed in Gaza, Tech for Palestine", with a link to the portal.
+  - Dates sit next to the figure they describe, not in `SourceNote`. They are formatted with
+    `Intl.DateTimeFormat('en-GB', { dateStyle: 'long', timeZone: 'UTC' })` ("27 July 2026").
 
 ### 6. Gaza demographics view (former Phase 7)
 
 - `src/features/gaza-demographics/GazaDemographicsView.tsx`, exported from `index.ts`. It calls
-  `useDataset('gaza-demographics')` and wraps a single `KpiCard` in a `StateBoundary` (empty when `total === 0`).
-  - Label: "People killed in Gaza identified by name".
-  - Value: `demographics.total`.
-  - Description: "This list includes only people identified by name. It does not include everyone reported killed."
-  - Reported-total line, shown only when `summary.gazaReported.killedTotal` is not `null`: "Gaza daily reports give
-    a total of 74,250 killed (as of 7 October 2026)." It cites `summary.json` and is labelled as a separate figure
-    from a separate report. When `lastUpdate` is `null`, the "(as of …)" part is left out.
-  - Footer: a `SourceNote` built from `summary.killedInGaza`, or with `null` dates if the summary failed.
+  `useDataset('gaza-demographics')` and wraps a single `KpiCard` in a `StateBoundary` (empty when the named total is 0
+  and there is no reported total).
+  - When `summary.gazaReported.killedTotal` is not `null`:
+    - Label "People killed in Gaza since 7 October 2023", value `gazaReported.killedTotal` (74,250). The start date
+      is fixed text: it is the first `report_date` of the daily reports series and is not in `summary.json`.
+    - Description: "From Gaza daily reports, last updated 7 October 2026." The date part is left out when
+      `gazaReported.lastUpdate` is `null`.
+    - Below, smaller: "72,835 identified by name" (`demographics.total`) and "Killed in Gaza list, last updated
+      27 July 2026." or "Killed in Gaza list; last update date unavailable."
+    - `SourceNote` naming both datasets.
+  - Fallback when the summary failed or has no reported total: label "People killed in Gaza identified by name", value
+    `demographics.total`, description "The list does not include everyone reported killed." followed by the list date
+    or "Last update date unavailable.", and `SourceNote` naming Killed in Gaza.
+  - The two figures are never added together or merged (mission principle 1).
 - `App.tsx` renders `<GazaDemographicsView />` in place of the placeholder. The heading, intro, footer, and skip link
   are unchanged.
 
@@ -140,9 +143,10 @@ least 44 px.
 
 | Decision           | Choice                                                                           | Rationale                                                                                    |
 | ------------------ | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
-| "Last updated"     | `summary.json` → `known_killed_in_gaza.last_update` + `includes_until`           | The only dated field for the dataset (no `last-modified`). Mission principle 4.              |
-| Summary failure    | Non-fatal: KPI shows, date line says "unavailable"                               | The main figure must not depend on a secondary request.                                      |
-| Reported total     | Shown as a separate, attributed line when available                              | Gives context for the named count without merging two sources into one number (principle 1). |
+| "Last updated"     | `summary.json` → `known_killed_in_gaza.last_update` only, one date per figure    | The only dated field for the dataset (no `last-modified`). Mission principle 4.              |
+| Summary failure    | Non-fatal: the named count becomes the main figure, date says "unavailable"      | The card always has a figure to show when the named list loads.                              |
+| Main figure        | Reported total from Gaza daily reports; named count smaller below (owner review) | The reported total shows the scale; the named count stays separate and attributed.           |
+| Date wording       | "last updated <date>" for both figures, never "as of"                            | "as of 7 October" reads as "since 7 October" (2023).                                         |
 | Worker output      | `{ total, bySex, byAgeBracket }` + summary facts                                 | Phase 8–9 only adds UI. The payload stays tiny.                                              |
 | Bucket shape       | Ordered `CountBucket[]` with `key`, `label`, `count`; Unknown always present     | Order and labels are defined once. Totals reconcile even at zero (tech-stack data handling). |
 | Age brackets       | Inclusive integer ranges `0–17`, `18–29`, `30–59`, `60+`, Unknown                | Matches `docs/data-sources.md`. Ages are integers after Phase 3.                             |
@@ -154,5 +158,4 @@ least 44 px.
 
 ## Open questions
 
-- None blocking. The exact wording of the KPI description and of the reported-total line can be refined during
-  review, as long as it stays sober and attributed.
+- None blocking. Wording can still be refined during review, as long as it stays sober and attributed.

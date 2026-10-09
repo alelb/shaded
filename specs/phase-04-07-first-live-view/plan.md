@@ -51,8 +51,8 @@ text), error (`role="alert"` message and a Retry button of at least 44 px), empt
 5.2 Add `src/components/KpiCard.tsx` and its `.module.css`: `KpiCard` and `KpiCardSkeleton`, which share the
 container class and `min-height`. The value uses `Intl.NumberFormat('en')` and a fluid `clamp()` size. The label is
 associated with the value for screen readers (for example, a `<figure>`/`<figcaption>` or `aria-labelledby`).
-5.3 Add `src/components/SourceNote.tsx` and its `.module.css`: source and portal link, the date line with the
-`null` fallback, and the caveat line. Add a `formatIsoDate()` helper (UTC, `dateStyle: 'long'`) in
+5.3 Add `src/components/SourceNote.tsx` and its `.module.css`: source and portal link
+(dates sit next to each figure in the view). Add a `formatIsoDate()` helper (UTC, `dateStyle: 'long'`) in
 `src/components/format.ts`, next to `formatCount()`.
 5.4 Export the three components from `src/components/index.ts`, and add a visually hidden utility class to
 `global.css` if none exists.
@@ -60,7 +60,7 @@ associated with the value for screen readers (for example, a `<figure>`/`<figcap
 ## 6. Gaza demographics view and shell
 
 6.1 Add `src/features/gaza-demographics/GazaDemographicsView.tsx` (and `.module.css` if needed), wiring `useDataset`
-→ `StateBoundary` → `KpiCard` with the description, the reported-total line, and `SourceNote`, as specified in
+→ `StateBoundary` → `KpiCard` with the reported total as the main figure, the named count below it, and `SourceNote`, as specified in
 `requirements.md`.
 6.2 Export it from `src/features/gaza-demographics/index.ts`, and remove the `TODO(Phase 7+)`.
 6.3 In `src/app/App.tsx`, replace the placeholder paragraph with `<GazaDemographicsView />`.
@@ -91,11 +91,11 @@ through (mocked `fetch`).
 - a stale message after `retry` is ignored.
 
 7.5 Component tests: `StateBoundary.test.tsx` (each state; Retry calls `onRetry`), `KpiCard.test.tsx` (formatted
-value, label association, skeleton class), and `SourceNote.test.tsx` (dates formatted; `null` → "unavailable"; link
-href).
+value, label association, skeleton class), and `SourceNote.test.tsx` (source, link href); `format.test.ts`
+(`formatIsoDate`).
 7.6 `src/features/gaza-demographics/GazaDemographicsView.test.tsx`, with `useDataset` mocked via `vi.mock`:
-loading, error with retry, empty (`total` 0), success (72,835 and the reported-total line), and summary `null` (no
-reported line, date unavailable).
+loading, error with retry, empty (`total` 0), success (74,250 main, 72,835 below, one
+"last updated" date each), and summary `null` (named count as the main figure, date unavailable).
 7.7 Update `src/app/App.test.tsx`: mock `useDataset`, and replace the placeholder assertion with one on the view (the
 KPI label is present).
 

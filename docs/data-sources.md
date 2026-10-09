@@ -97,7 +97,7 @@ Killed in Gaza list and for the reported total killed in Gaza, shown as a separa
 | Field                                 | Rule in Shaded                                                                                                    |
 | ------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
 | `known_killed_in_gaza.last_update`    | Shown as the Killed in Gaza "last updated" date. Kept only if it is a `YYYY-MM-DD` string; otherwise unavailable. |
-| `known_killed_in_gaza.includes_until` | Shown as "records up to". Same date rule.                                                                         |
+| `known_killed_in_gaza.includes_until` | Not used: one date per figure keeps the card readable.                                                            |
 | `known_killed_in_gaza.records`        | Not displayed; used only to cross-check the live total. Kept only if it is a non-negative integer.                |
 | `gaza.killed.total`                   | Shown as a separate reported-total line, never merged with the named count. Same integer rule.                    |
 | `gaza.last_update`                    | The "as of" date of the reported total. Same date rule.                                                           |
