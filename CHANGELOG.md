@@ -12,6 +12,19 @@ All notable changes to Shaded, grouped by date (newest first).
 - Confirm the normalizer on live Killed in Gaza data: 72,835 records (50,959 male, 21,876 female, 1,072 aged 0), no
   Unknown values.
 - Complete Phase 3 — Normalizer.
+- Add the Phase 4–7 First live view spec (requirements, plan, validation).
+- Add demographic aggregators (`bySex`, `byAgeBracket`, `summarizeDemographics`) with ordered buckets and an Unknown
+  bucket always present; tests prove every breakdown sums to the total.
+- Add the `summary.json` source module: the named-list update date and record count, and the total killed reported by
+  Gaza daily reports; invalid values become `null`.
+- Add the dataset Web Worker and `useDataset()`: fetch, normalize, and aggregate off the main thread; only aggregates
+  cross the thread boundary; retry and StrictMode safe.
+- Add shared UI states and components: `StateBoundary` (loading, error with Retry, empty), `KpiCard` with a
+  same-height skeleton, and `SourceNote`.
+- Add the Gaza demographics view: 74,250 people killed in Gaza since 7 October 2023 (Gaza daily reports) as the main
+  figure, 72,835 identified by name below it, one "last updated" date for each figure.
+- Reword the header intro: "Open data bearing witness to Palestinians killed by Israel in Gaza and the West Bank."
+- Remove the footer "Source code" link and the max-width on the intro and the limitations note.
 
 ## 2026-10-08
 
