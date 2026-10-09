@@ -10,7 +10,7 @@ Run locally and in CI:
 pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm build
 ```
 
-- [ ] All checks pass locally, and the `ci` workflow is green on the PR. (Local: passed 2026-10-09; CI: pending PR.)
+- [x] All checks pass locally, and the `ci` workflow is green on the PR (#7).
 
 ### `toAge` unit tests
 
