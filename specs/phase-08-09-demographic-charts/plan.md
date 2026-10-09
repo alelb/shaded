@@ -105,3 +105,18 @@ layout-shift trace, the VoiceOver pass, and the real-phone tap check from `valid
 7.3 Update `CHANGELOG.md` after committing.
 7.4 Open a PR, confirm `ci` is green, and wait for the owner's review before merging.
 7.5 After the merge and a successful deploy, mark Phase 8–9 ✅ in `specs/roadmap.md`.
+
+## Review changes (2026-10-09)
+
+Changes made during implementation and the owner's review; `requirements.md` and `validation.md` are updated.
+
+- `HorizontalBarChart` is not re-exported from `src/components/index.ts`: the shared barrel pulled Recharts into the
+  initial chunk. `DemographicCharts` imports it directly.
+- Bars use the `shape` prop instead of `Cell`, which is deprecated in Recharts 3.
+- `LoadError` is extracted from `StateBoundary` and reused by `ChartsErrorBoundary`.
+- An empty Unknown bucket is not drawn (`shownBuckets()`); the summary still states the Unknown count.
+- No data table and no toggle; the summary is visually hidden and stays the figure's accessible description.
+  `ChartFrame` takes `rows` instead of `categoryHeader`, `buckets`, and `total`.
+- Chart titles are "Sex" and "Age". The label axis is 4.5rem wide (was 7rem), so bars get more room at 320 px.
+- Flagged for replanning: `tech-stack.md` ("Every chart has an accessible text summary and a toggleable data table")
+  and the roadmap's Phase 8–9 wording no longer match.

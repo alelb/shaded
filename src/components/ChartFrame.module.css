@@ -1,0 +1,67 @@
+.frame {
+  display: grid;
+  align-content: start;
+  gap: var(--space-3);
+  min-width: 0;
+  margin: 0;
+  padding: var(--space-5) var(--space-4);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+}
+
+.title {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  line-height: var(--line-height-tight);
+}
+
+.description {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+/* One row per bucket, capped so a whole chart fits on a landscape phone. `--rows` is set inline. */
+.plot {
+  min-width: 0;
+  height: min(calc(var(--rows) * var(--chart-row-height) + var(--space-5)), 70svh);
+}
+
+.source {
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--color-border);
+}
+
+@media (min-width: 640px) {
+  .frame {
+    padding: var(--space-6);
+  }
+}
+
+.bar {
+  display: block;
+  height: 1rem;
+  max-width: 32rem;
+}
+
+.bar,
+.plotSkeleton {
+  background: var(--color-border);
+  border-radius: var(--radius);
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.barTitle {
+  width: 70%;
+  height: 1.5rem;
+}
+
+.barShort {
+  width: 60%;
+}
+
+@keyframes pulse {
+  50% {
+    opacity: 0.5;
+  }
+}

@@ -9,6 +9,9 @@
  * Contrast (WCAG 2.1, text vs background / surface):
  *   light: text 16.5 / 15.0, muted 7.3 / 6.6, link 7.0 / 6.4
  *   dark:  text 15.2 / 13.5, muted 7.4 / 6.6, link 9.1 / 8.1
+ * Chart bars (WCAG 1.4.11, non-text, at least 3:1 vs background / surface):
+ *   light: chart-bar 4.6 / 4.2
+ *   dark:  chart-bar 4.9 / 4.4
  * Borders are decorative only and never carry meaning.
  */
 :root {
@@ -22,6 +25,7 @@
   --color-link: #1f4fb8;
   --color-focus: #1f4fb8;
   --color-border: #d6d3cd;
+  --color-chart-bar: #78716c;
 
   /* Spacing */
   --space-1: 0.25rem;
@@ -48,6 +52,9 @@
   --tap-target: 44px;
   --radius: 0.25rem;
   --focus-ring: 3px solid var(--color-focus);
+
+  /* Charts */
+  --chart-row-height: 3rem; /* One bar row, with room for a label wrapped onto two lines */
 }
 
 @media (prefers-color-scheme: dark) {
@@ -60,6 +67,7 @@
     --color-link: #9bb8f2;
     --color-focus: #9bb8f2;
     --color-border: #3d3b37;
+    --color-chart-bar: #8a857d;
   }
 }
 

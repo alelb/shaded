@@ -22,12 +22,13 @@ pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm build
 
 ### Components
 
-- [ ] `ChartFrame`: the figure is named by its title and described by its summary; the table is hidden by default;
-      the toggle flips `aria-expanded` and its label; the table has one row per bucket with formatted counts and shares
-      and the rounding note.
+- [ ] `ChartFrame`: the figure is named by its title and described by its summary; the summary is visually hidden;
+      there is no data table or toggle.
 - [ ] `ChartFrameSkeleton` shares the frame's container class and plot height.
 - [ ] `HorizontalBarChart` smoke render: every bucket label and formatted count is in the SVG, including a `0`
       bucket; the SVG is named by the chart title.
+- [ ] An empty Unknown bucket is left out of the chart, and drawn when it has records; the summary
+      still states the Unknown count.
 
 ### View
 
@@ -41,7 +42,7 @@ pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm build
 
 - [ ] `HorizontalBarChart.tsx` is the only file that imports `recharts`.
 - [ ] `ChartFrame` and the summaries import no chart library; the summaries import no React.
-- [ ] The summary, table, and chart all read the same `CountBucket[]` from `useDataset()`: no re-aggregation in the
+- [ ] The summary and chart both read the same `CountBucket[]` from `useDataset()`: no re-aggregation in the
       UI, no `fetch`, no imports from `data/sources/` or `data/worker/` at runtime.
 - [ ] Bars use one color token; Unknown is hatched; nothing is conveyed by color alone; animations are off.
 - [ ] Styles are mobile first: `min-width` queries only, `rem`/`clamp()` sizes, tap targets ≥ 44 px.
@@ -55,20 +56,20 @@ From `pnpm build` output. Baseline on `main` (2026-10-09): initial JS 70.72 kB g
 - [ ] Initial JS is at most ~80 kB gzip.
 - [ ] Recharts is only in the lazy chart chunk, not in the initial chunk.
 
-| Date | Initial JS (gzip) | Chart chunk (gzip) | Worker chunk | Notes |
-| ---- | ----------------- | ------------------ | ------------ | ----- |
-|      |                   |                    |              |       |
+| Date       | Initial JS (gzip)        | Chart chunk (gzip)        | Worker chunk | Notes                                                                                                                                                                                    |
+| ---------- | ------------------------ | ------------------------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-10-09 | 231.87 kB (**72.86 kB**) | 352.17 kB (**102.54 kB**) | 4.13 kB      | `recharts` found only in the `DemographicCharts` chunk. `HorizontalBarChart` is kept out of the components barrel: a shared barrel pulled Recharts into the initial chunk (174 kB gzip). |
 
 ## Live-data check (manual)
 
 Run the scratchpad script from plan task 6.1 against the live endpoints.
 
 - [ ] Both breakdown sums equal `total`.
-- [ ] The summaries and the table values match the aggregator output (counts and shares).
+- [ ] The summaries match the aggregator output (counts and shares).
 
-| Date | Total | Male | Female | Unknown sex | 0–17 | 18–29 | 30–59 | 60+ | Unknown age | Notes |
-| ---- | ----- | ---- | ------ | ----------- | ---- | ----- | ----- | --- | ----------- | ----- |
-|      |       |      |        |             |      |       |       |     |             |       |
+| Date       | Total  | Male           | Female         | Unknown sex | 0–17           | 18–29          | 30–59          | 60+          | Unknown age | Notes                                                                     |
+| ---------- | ------ | -------------- | -------------- | ----------- | -------------- | -------------- | -------------- | ------------ | ----------- | ------------------------------------------------------------------------- |
+| 2026-10-09 | 72,835 | 50,959 (70.0%) | 21,876 (30.0%) | 0 (0.0%)    | 21,637 (29.7%) | 19,360 (26.6%) | 26,664 (36.6%) | 5,174 (7.1%) | 0 (0.0%)    | Node 24.13; both sums equal the total; summaries match `requirements.md`. |
 
 ## Layout-shift check (manual)
 
@@ -88,39 +89,38 @@ On `pnpm preview` (or the Pages URL), in the Chrome DevTools Performance panel, 
 Check at 360 px first (Chrome DevTools device mode), then across the full matrix from `tech-stack.md`, in light and
 dark mode. For the error state, block the chart chunk (DevTools "Block request URL") after the first load.
 
-| Width                | No horizontal scroll | Labels readable, not clipped | Whole chart fits on screen | Table: stacked < 640 / table ≥ 640 | Toggle and tooltip ≥ 44 px, work |
-| -------------------- | -------------------- | ---------------------------- | -------------------------- | ---------------------------------- | -------------------------------- |
-| 320 px               | [ ]                  | [ ]                          | [ ]                        | [ ]                                | [ ]                              |
-| 360 px               | [ ]                  | [ ]                          | [ ]                        | [ ]                                | [ ]                              |
-| 640×360 (landscape)  | [ ]                  | [ ]                          | [ ]                        | [ ]                                | [ ]                              |
-| 768 px               | [ ]                  | [ ]                          | [ ]                        | [ ]                                | [ ]                              |
-| 1024 px              | [ ]                  | [ ]                          | [ ]                        | [ ]                                | [ ]                              |
-| 1440 px              | [ ]                  | [ ]                          | [ ]                        | [ ]                                | [ ]                              |
-| 360 px at 200 % zoom | [ ]                  | [ ]                          | [ ]                        | [ ]                                | [ ]                              |
+| Width                | No horizontal scroll | Labels readable, not clipped | Whole chart fits on screen | Tooltip ≥ 44 px, works |
+| -------------------- | -------------------- | ---------------------------- | -------------------------- | ---------------------- |
+| 320 px               | [ ]                  | [ ]                          | [ ]                        | [ ]                    |
+| 360 px               | [ ]                  | [ ]                          | [ ]                        | [ ]                    |
+| 640×360 (landscape)  | [ ]                  | [ ]                          | [ ]                        | [ ]                    |
+| 768 px               | [ ]                  | [ ]                          | [ ]                        | [ ]                    |
+| 1024 px              | [ ]                  | [ ]                          | [ ]                        | [ ]                    |
+| 1440 px              | [ ]                  | [ ]                          | [ ]                        | [ ]                    |
+| 360 px at 200 % zoom | [ ]                  | [ ]                          | [ ]                        | [ ]                    |
 
-- [ ] "Unknown / Not specified" wraps onto two lines at 320 px instead of being truncated.
-- [ ] Every count is visible on its bar without tapping, including 0.
+- [ ] When it has records, "Unknown / Not specified" wraps onto several lines at 320 px instead of being truncated
+      (live data has none on 2026-10-09: covered by the earlier headless check).
+- [ ] Every count is visible on its bar without tapping, including 0; an empty Unknown bucket is not drawn.
 
 ## Manual checks: real phone
 
 On a real phone, on the Pages URL.
 
 - [ ] Tapping a bar shows its label, count, and share; tapping elsewhere or another bar behaves predictably.
-- [ ] The data table opens and closes; no horizontal scroll anywhere.
+- [ ] No horizontal scroll anywhere.
 
 ## Manual checks: screen reader
 
 VoiceOver on macOS (Safari) or iOS.
 
 - [ ] Each chart is announced with its title, then its summary.
-- [ ] The toggle announces its expanded or collapsed state.
-- [ ] The table is announced with its caption and column and row headers.
 
 ## Done when (roadmap)
 
 - [ ] Both charts are live on the Pages URL.
 - [ ] Both are readable at 360 px with no horizontal scroll.
-- [ ] Their summaries and tables match the aggregator output.
+- [ ] Their summaries match the aggregator output.
 
 ## Not required for this phase
 

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { formatCount, formatIsoDate } from './format.ts';
+import { formatCount, formatIsoDate, formatShare } from './format.ts';
 
 describe('formatCount', () => {
   it.each([
@@ -20,5 +20,17 @@ describe('formatIsoDate', () => {
     ['2026-12-31', '31 December 2026'],
   ])('formats %s as %s in UTC', (value, expected) => {
     expect(formatIsoDate(value)).toBe(expected);
+  });
+});
+
+describe('formatShare', () => {
+  it.each([
+    [21_637, 72_835, '29.7%'],
+    [0, 72_835, '0.0%'],
+    [1, 72_835, '<0.1%'],
+    [5, 0, '0.0%'],
+    [72_835, 72_835, '100.0%'],
+  ])('formats %i of %i as %s', (count, total, expected) => {
+    expect(formatShare(count, total)).toBe(expected);
   });
 });
