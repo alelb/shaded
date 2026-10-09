@@ -13,13 +13,14 @@ a new dataset is added, or when a value rule is decided. Always date observation
 
 ## Shared vocabulary
 
-| Term              | Meaning                                                                            |
-| ----------------- | ---------------------------------------------------------------------------------- |
-| Casualty / killed | A person recorded as killed in a source dataset. "Total" = count of those records. |
-| Sex               | `male`, `female`, or `Unknown / Not specified`.                                    |
-| Age brackets      | `0–17` (children, per UN CRC), `18–29`, `30–59`, `60+`, `Unknown`.                 |
-| Bracket bounds    | Inclusive integer ranges; `60+` is 60–120; `age` Unknown → `Unknown` (2026-10-09). |
-| Unknown           | Field is missing, null, empty, or not parseable.                                   |
+| Term              | Meaning                                                                                        |
+| ----------------- | ---------------------------------------------------------------------------------------------- |
+| Casualty / killed | A person recorded as killed in a source dataset. "Total" = count of those records.             |
+| Sex               | `male`, `female`, or `Unknown / Not specified`.                                                |
+| Age brackets      | `0–17` (children, per UN CRC), `18–29`, `30–59`, `60+`, `Unknown`.                             |
+| Bracket bounds    | Inclusive integer ranges; `60+` is 60–120; `age` Unknown → `Unknown` (2026-10-09).             |
+| Unknown           | Field is missing, null, empty, or not parseable.                                               |
+| Share             | Count ÷ records in the same dataset, one decimal; non-zero below 0.05% → `<0.1%` (2026-10-09). |
 
 ## Catalog
 
