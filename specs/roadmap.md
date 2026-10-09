@@ -34,7 +34,7 @@ A UI phase is not done until it works on a phone (touch, no horizontal scroll, r
 - Raw record → domain record `{ sex: 'male'|'female'|'unknown', age: number|null }`. [2.2]
 - **Done when:** unit tests cover null, missing, empty, negative, and non-numeric values.
 
-### Phase 4–7 — First live view: total KPI [1.1, 2.1–2.3]
+### Phase 4–7 — First live view: total KPI [1.1, 2.1–2.3] ✅
 
 Merges the former Phases 4 (Aggregators), 5 (Web Worker + `useDataset`), 6 (Shared UI states) and 7 (Total KPI card)
 so the first real data reaches the published site. Phase numbers are kept so earlier specs stay valid.
@@ -43,8 +43,9 @@ so the first real data reaches the published site. Phase numbers are kept so ear
   tests prove every breakdown sums to the total.
 - Worker does fetch → normalize → aggregate and posts the results; `useDataset()` exposes `{status, data, error, retry}`.
 - `StateBoundary` (loading skeleton sized to the final card, error with retry, empty) and `SourceNote`.
-- `KpiCard` with the total count, clearly labelled as people identified by name (see Phase 2 notes), source and
-  "last updated" line; the Gaza demographics view replaces the shell placeholder.
+- `KpiCard` with the total killed since 7 October 2023 from Gaza daily reports as the main figure and the count of
+  people identified by name below it (see Phase 2 notes), each with its own "last updated" date, plus the source; the
+  Gaza demographics view replaces the shell placeholder.
 - **Done when:** the KPI card is live on the Pages URL at 360 px; component tests cover loading, error, empty and
   success; tests prove the breakdown invariant; main thread shows no long tasks during load (DevTools performance check).
 

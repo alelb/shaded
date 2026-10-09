@@ -25,6 +25,7 @@ All notable changes to Shaded, grouped by date (newest first).
   figure, 72,835 identified by name below it, one "last updated" date for each figure.
 - Reword the header intro: "Open data bearing witness to Palestinians killed by Israel in Gaza and the West Bank."
 - Remove the footer "Source code" link and the max-width on the intro and the limitations note.
+- Complete Phase 4–7 — First live view: the KPI card is live at <https://alelb.github.io/shaded/>.
 
 ## 2026-10-08
 
