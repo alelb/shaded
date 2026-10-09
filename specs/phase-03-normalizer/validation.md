@@ -12,7 +12,7 @@ pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm build
 
 - [ ] All checks pass locally, and the `ci` workflow is green on the PR.
 
-### `parseAge` unit tests
+### `toAge` unit tests
 
 - [ ] `null` and `undefined` (missing) → `null`.
 - [ ] Empty and whitespace-only strings → `null`.
@@ -23,12 +23,12 @@ pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm build
 - [ ] `0` → `0` (a real age, not Unknown), and `-0` → `0`.
 - [ ] Integer numbers and trimmed integer strings (`"34"`, `" 34 "`, `"034"`) → the number.
 
-### `parseSex` unit tests
+### `toSex` unit tests
 
 - [ ] `m`/`male` and `f`/`female`, in any case and with surrounding spaces, → `'male'` / `'female'`.
 - [ ] Missing, `null`, empty, other strings, and non-strings → `'unknown'`.
 
-### `normalizeKilledInGaza` unit tests
+### `normalizePeople` unit tests
 
 - [ ] The Phase 2 fixture normalizes to the 8 expected records, including two with age `0`.
 - [ ] Messy rows (null, missing, empty, negative, non-numeric) map to Unknown values, and none is dropped.
@@ -39,20 +39,22 @@ pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm build
 
 ## Structural checks (review)
 
-- [ ] `src/data/normalize/` imports nothing from React, the DOM, or the network. The import from `sources/` is
-      `import type` only.
+- [ ] There is no per-dataset normalizer module and no generic engine: only `normalize/person.ts`.
+- [ ] `src/data/normalize/` imports nothing from React, the DOM, or the network. Imports from `sources/` appear only
+      in tests.
 - [ ] No `any`. Inputs are `unknown`, and the output is `readonly DomainRecord[]`.
 - [ ] No function in `normalize/` throws on any input.
 - [ ] `DomainRecord` and `Sex` keep their names, and `aggregators/demographics.ts` still compiles unchanged.
+- [ ] Phase 2 code (`src/data/sources/`) is unchanged.
 - [ ] No new dependencies.
-- [ ] `docs/data-sources.md` value rules match the implementation.
+- [ ] The `docs/data-sources.md` value rules match the implementation.
 
 ## Live-data check (manual)
 
-Run the scratchpad script from plan task 4 against `KILLED_IN_GAZA_URL`.
+Run the scratchpad script from plan task 3 against `KILLED_IN_GAZA_URL`.
 
 - [ ] The record count equals the row count of the payload.
-- [ ] Recorded: date, records, male / female / unknown sex, unknown age, age `0`, duration.
+- [ ] The results match the 2026-10-08 run, or any difference is explained.
 
 | Date | Records | Male | Female | Unknown sex | Unknown age | Age 0 | Duration | Notes |
 | ---- | ------- | ---- | ------ | ----------- | ----------- | ----- | -------- | ----- |
