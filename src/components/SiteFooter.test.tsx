@@ -15,4 +15,9 @@ describe('SiteFooter', () => {
     render(<SiteFooter />);
     expect(screen.getByText(/reported figures may undercount the real toll/i)).toBeInTheDocument();
   });
+
+  it('has no link other than the data portal', () => {
+    render(<SiteFooter />);
+    expect(screen.getAllByRole('link')).toHaveLength(1);
+  });
 });
